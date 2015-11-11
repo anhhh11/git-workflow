@@ -1,3 +1,14 @@
+# Cài đặt:
+```
+	Tải git tại đây: https://git-scm.com/download/win
+	Cài đặt như thông thường
+```
+
+# Sử dụng:
+```
+	Start > git bash
+```
+
 # Cấu trúc gọi lệnh cơ bản Linux:
 ```
 	command_name --param1 val1 --param2 val2 valOfNoNameParam1 valOfNoNameParm2
