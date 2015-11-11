@@ -48,41 +48,43 @@ Command_name của git đảm nhiệm 1 chức cụ thể duy nhất. Ví dụ:
 		chmod 600 ~/.ssh/authorized_keys
 	```
 
-Trên máy client sửa ~/.ssh/config như sau
-```
-	Host remoteServer
-	Hostname 123.123.123.123
-	User git
-	IdentityFile ~/.ssh/id_rsa
-```
+- Trên máy client sửa ~/.ssh/config như sau
+	```
+		Host remoteServer
+		Hostname 123.123.123.123
+		User git
+		IdentityFile ~/.ssh/id_rsa
+	```
 
 - Tạo remote repo
-cd /projects/project1
-git init --bare # tạo repo rỗng, không commit tạo branch được, chỉ push được.
+	```
+	cd /projects/project1
+	git init --bare # tạo repo rỗng, không commit tạo branch được, chỉ push được.
+	```
 
 - Khởi tạo các branch
-```
-	# trên một client của userX bất kì
-	git clone remoteServer:/projects/project1
-	cd project1
-	git checkout -b dev # branch dev chứa bản mới nhất
-	# Khởi tạo template cho dự án như: copy-paste template CakePHP.....
-	# Tạo tệp .gitignore loại bỏ không track hay commit nhưng tệp của VD CakePHP:
-	# /lib
-	# /app/tmp
-	# /app/config/database.php
-	git add . # Thêm vào index
-	git commit -am "Initilize project" # Commit 
-	git checkout -b beta # tạo branch beta chứa bản dev ổn định
-	git checkout -b production # tạo branch production chứa bản beta đã accept
-	git push origin dev -u 
-	# Push lên server nguồn origin(nguồn mặc định khi clone về)
-	# Thêm -u để những lần push sau, chỉ cần `git push` sẽ tương đương với `git push origin dev -u`
-	# origin ở đây là nguồn remote, xem các nguồn ở `git remote -v`
-	# để đổi nguồn: `git remote set-url origin remoteServerOther:/projects/project1`
-	git push origin beta -u
-	git push origin production -u
-```
+	```
+		# trên một client của userX bất kì
+		git clone remoteServer:/projects/project1
+		cd project1
+		git checkout -b dev # branch dev chứa bản mới nhất
+		# Khởi tạo template cho dự án như: copy-paste template CakePHP.....
+		# Tạo tệp .gitignore loại bỏ không track hay commit nhưng tệp của VD CakePHP:
+		# /lib
+		# /app/tmp
+		# /app/config/database.php
+		git add . # Thêm vào index
+		git commit -am "Initilize project" # Commit 
+		git checkout -b beta # tạo branch beta chứa bản dev ổn định
+		git checkout -b production # tạo branch production chứa bản beta đã accept
+		git push origin dev -u 
+		# Push lên server nguồn origin(nguồn mặc định khi clone về)
+		# Thêm -u để những lần push sau, chỉ cần `git push` sẽ tương đương với `git push origin dev -u`
+		# origin ở đây là nguồn remote, xem các nguồn ở `git remote -v`
+		# để đổi nguồn: `git remote set-url origin remoteServerOther:/projects/project1`
+		git push origin beta -u
+		git push origin production -u
+	```
 
 - Mỗi user1, user2, user3 sẽ clone về
 ```
