@@ -210,5 +210,5 @@ git merge feature_fX
 ```
 
 # Tham khảo
-- [Pro Git book.](http://backlogtool.com/git-guide/vn)
+- [Pro Git book.](https://git-scm.com/book/en/v2)
 - [Hướng dẫn về git backlogtool.](http://backlogtool.com/git-guide/vn/)
