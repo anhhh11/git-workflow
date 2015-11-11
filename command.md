@@ -34,6 +34,14 @@ Command_name của git đảm nhiệm 1 chức cụ thể duy nhất. Ví dụ:
 * Nếu mỗi user với các tài khoản khác nhau push lên chung một repo -> sẽ gây ra lỗi, 
   do mặc định linux file nào được user nào push lên thì owner:group sẽ là của user đó thay vì là root:project1 như khởi tạo ban đầu 
   -> lỗi trong quá trình push, pull tạo branch,... -> dùng 1 user git share giữa các user *
+- Tạo cặp khóa public, private
+
+```
+	# Trên máy local
+	ssh-keygen -t rsa (từ cygwin hoặc git mingw), tạo cặp khóa
+	# Gửi public key lên server
+```
+
 ```
 	su
 	adduser git
@@ -46,7 +54,8 @@ Command_name của git đảm nhiệm 1 chức cụ thể duy nhất. Ví dụ:
 	chmod 700 ~/.ssh
 	chmod 600 ~/.ssh/authorized_keys
 ```
-Trên máy client sửa User name từ user1 -> git
+
+Trên máy client sửa ~/.ssh/config như sau
 ```
 	Host remoteServer
 	Hostname 123.123.123.123
@@ -59,6 +68,7 @@ cd /projects/project1
 git init --bare # tạo repo rỗng, không commit tạo branch được, chỉ push được.
 
 2. khởi tạo các branch
+```
 # trên một client của userX bất kì
 git clone remoteServer:/projects/project1
 cd project1
@@ -79,9 +89,9 @@ git push origin dev -u
 # để đổi nguồn: `git remote set-url origin remoteServerOther:/projects/project1`
 git push origin beta -u
 git push origin production -u
+```
 
 3. Mỗi user1, user2, user3 sẽ clone về
-
 ```
 git clone remoteServer:/projects/project1
 git fetch --all # lấy tất cả các nhánh về
@@ -92,8 +102,7 @@ git checkout dev # sang nhánh dev
 - Chức năng 1, user1 nhánh feature_f1
 - Chức năng 2, user2 nhánh feature_f2
 - Chức năng 2, user3 nhánh feature_f3
-Các nhánh này được tạo thành từ nhánh dev ban đầu:
-# Ví dụ với user1
+Các nhánh này được tạo thành từ nhánh dev ban đầu. Ví dụ với user1:
 ```
 git checkout dev # về nhánh dev
 git checkout -b feature_f1
