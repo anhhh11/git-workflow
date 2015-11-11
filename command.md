@@ -87,110 +87,110 @@ Command_name của git đảm nhiệm 1 chức cụ thể duy nhất. Ví dụ:
 	```
 
 - Mỗi user1, user2, user3 sẽ clone về
-```
-	git clone remoteServer:/projects/project1
-	git fetch --all # lấy tất cả các nhánh về
-	git checkout dev # sang nhánh dev
-```
+	```
+		git clone remoteServer:/projects/project1
+		git fetch --all # lấy tất cả các nhánh về
+		git checkout dev # sang nhánh dev
+	```
 
 - Mỗi user1, user2, user3 sẽ clone về được phân các chức năng, mỗi chức năng sẽ được dev ở các branch khác nhau.VD:
-- Chức năng 1, user1 nhánh feature_f1
-- Chức năng 2, user2 nhánh feature_f2
-- Chức năng 2, user3 nhánh feature_f3
+	- Chức năng 1, user1 nhánh feature_f1
+	- Chức năng 2, user2 nhánh feature_f2
+	- Chức năng 2, user3 nhánh feature_f3
 
-Các nhánh này được tạo thành từ nhánh dev ban đầu. Ví dụ với user1:
-```
-	git checkout dev # về nhánh dev
-	git checkout -b feature_f1
-	# thao tác trên nhánh này, code...code..
-	git add . # thêm tất cả file mới vào inđex
-	git commit -am "...thêm controller..." # từ index xác nhận commit
-	git pull origin dev # pull về dev mới nhất
-	# làm phẳng history
-	git rebase dev # 
-	# * LƯU Ý: 
-	#  - KHÔNG ĐƯỢC từ `dev` thực hiện `git rebase feature_fX` SẼ BỊ CONFLICT (tham khảo ở đây: https://www.atlassian.com/git/tutorials/merging-vs-rebasing/conceptual-overview)
-	#  - Chỉ rebase trên branch mà không có ai khác đang sử dụng, ví dụ:
-	#	  git checkout someBranch
-	#     git rebase dev  
-	#   thì someBranch phải chưa được public, hoặc hiện tại không ai đang thao tác trên branch đó - hay checkout từ branch đó sang 1 branch khác
-	# *
-	# `xử lý conflict nếu có` && `git add` && `git rebase --continue`
-	git checkout dev
-	git merge feature_f2 # merge feature_f2 vào dev
-	git push origin dev # đẩy dev lên remote
-```
+- Các nhánh này được tạo thành từ nhánh dev ban đầu. Ví dụ với user1:
+	```
+		git checkout dev # về nhánh dev
+		git checkout -b feature_f1
+		# thao tác trên nhánh này, code...code..
+		git add . # thêm tất cả file mới vào inđex
+		git commit -am "...thêm controller..." # từ index xác nhận commit
+		git pull origin dev # pull về dev mới nhất
+		# làm phẳng history
+		git rebase dev # 
+		# * LƯU Ý: 
+		#  - KHÔNG ĐƯỢC từ `dev` thực hiện `git rebase feature_fX` SẼ BỊ CONFLICT (tham khảo ở đây: https://www.atlassian.com/git/tutorials/merging-vs-rebasing/conceptual-overview)
+		#  - Chỉ rebase trên branch mà không có ai khác đang sử dụng, ví dụ:
+		#	  git checkout someBranch
+		#     git rebase dev  
+		#   thì someBranch phải chưa được public, hoặc hiện tại không ai đang thao tác trên branch đó - hay checkout từ branch đó sang 1 branch khác
+		# *
+		# `xử lý conflict nếu có` && `git add` && `git rebase --continue`
+		git checkout dev
+		git merge feature_f2 # merge feature_f2 vào dev
+		git push origin dev # đẩy dev lên remote
+	```
 
 - Sẽ có userX nào đó đảm nhiệm review code và merge từ feature -> beta
-```
-	git pull origin dev
-	git checkout dev
-	git merge beta
-```
+	```
+		git pull origin dev
+		git checkout dev
+		git merge beta
+	```
 
 - Merge từ beta -> production
-```
-	git pull origin beta
-	git checkout production
-	git merge beta
-	git tag -am "...Some message..." v1.01 # đánh tag phiên bản
-```
+	```
+		git pull origin beta
+		git checkout production
+		git merge beta
+		git tag -am "...Some message..." v1.01 # đánh tag phiên bản
+	```
 
 - Với các lỗi phát sinh ở feature tương ứng:
 	- userX code chúc năng đó sẽ checkout sang branch - ví dụ lỗi ở feature_f1 - feature_f1, từ branch này(hoặc branch phù hợp(VD: dev)
 	- nếu lỗi này liên quan đến nhánh khác VD feature_f2..) sang branch `fix_bug_XYZ_feature_f1`
-```
-	git checkout feature_f1 # hoặc `git checkout dev`
-	git checkout -b fix_bug_XYZ_feature_f1
-	# fix bug, add, commit
-	git checkout dev
-	git merge fix_bug_XYZ_feature_f1
-	git push origin dev
-```
+	```
+		git checkout feature_f1 # hoặc `git checkout dev`
+		git checkout -b fix_bug_XYZ_feature_f1
+		# fix bug, add, commit
+		git checkout dev
+		git merge fix_bug_XYZ_feature_f1
+		git push origin dev
+	```
 
 - Nếu có conflict khi merge code, các userX có code trùng nhau sẽ bàn lại ngồi sửa. Rồi commit lên dev....
 
 # Các lệnh thường dùng
 
-1. Commit các tệp đã modify với kèm với message ngắn(1 dòng)
+- Commit các tệp đã modify với kèm với message ngắn(1 dòng)
 ```
 git commit -am "<message>" 
 ```
-2. Commit các tệp mới và các tệp đã modify với kèm với message ngắn(1 dòng)
+- Commit các tệp mới và các tệp đã modify với kèm với message ngắn(1 dòng)
 ```
 git add <tep1> <tep2> # hoặc: `git add .` để thêm tất
 git commit -am "<message>" 
 ```
-3. Lấy tất cả nhánh từ remote
+- Lấy tất cả nhánh từ remote
 ```
 git fetch --all
 ```
-4. Tạo nhánh mới
+- Tạo nhánh mới
 ```
 git branch -b feature_fX
 ```
-5. Checkout sang nhánh cũ(hoặc nhánh vừa mới fetch về)
+- Checkout sang nhánh cũ(hoặc nhánh vừa mới fetch về)
 ```
 git checkout branch_name
 ```
-6. Merge 2 nhánh
+- Merge 2 nhánh
 ```
 git checkout feature_fX
 git merge dev
 ```
-7. Xem log các commit
+- Xem log các commit
 ```
 git log --all
 ```
-8. Xem danh sách các nhanh trên máy
+- Xem danh sách các nhanh trên máy
 ```
 git branch -v
-``
-9. Xem danh sách tất cả nhánh(trên máy+remote)
+```
+- Xem danh sách tất cả nhánh(trên máy+remote)
 ```
 git branch --all
 ```
-10. Làm phẳng history (thay vì phân nhánh khi merge thì rebase cho history dạng thẳng(linear))
+- Làm phẳng history (thay vì phân nhánh khi merge thì rebase cho history dạng thẳng(linear))
 ```
 git checkout feature_fX
 git rebase dev
