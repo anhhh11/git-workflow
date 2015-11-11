@@ -208,3 +208,7 @@ git rebase dev
 git checkout dev
 git merge feature_fX
 ```
+
+# Tham khảo
+- [Pro Git book.](http://backlogtool.com/git-guide/vn)
+- [Hướng dẫn về git backlogtool.](http://backlogtool.com/git-guide/vn/)
