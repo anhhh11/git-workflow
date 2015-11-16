@@ -209,6 +209,14 @@ git checkout dev
 git merge feature_fX
 ```
 
+- Commit nhầm, trở lại trước lúc commit để commit lại:
+```
+git reset --soft HEAD^
+# sửa file, add lại
+git commit -m "Some message"
+```
+
+
 # Tool giao diện
 - [SourceTree](https://www.sourcetreeapp.com/)
 
