@@ -216,6 +216,11 @@ git reset --soft HEAD^
 git commit -m "Some message"
 ```
 
+- Sửa message commit nhầm
+```
+git commit --amend -m "Message mới"
+```
+
 
 # Tool giao diện
 - [SourceTree](https://www.sourcetreeapp.com/)
